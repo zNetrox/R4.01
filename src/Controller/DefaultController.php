@@ -53,32 +53,7 @@ class DefaultController extends AbstractController
         return $this->render('default/contact.html.twig');
     }
 
-    // a refaire
-    #[Route(
-        path: 'boutique',
-        name: 'app_boutique_index',
-    )]
-    public function boutique(BoutiqueService $boutique): Response
-    {
-        $categories = $boutique->findAllCategories();
 
-        return $this->render('app_boutique_index/index.html.twig', ["categories" => $categories]);
-    }
-
-
-
-
-    // route et contrôleur de la page de boutique
-    //#[Route('/boutique')]
-    //    class BoutiqueController extends AbstractController {
-
-    //        #[Route('', name : 'app_boutique')] // URL : /boutique
-    //        public function index(BoutiqueService $boutique) : Response {
-
-    //           return new Response("Hello World !");
-
-    //        }
-    //}
 
 
 
