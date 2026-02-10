@@ -6,17 +6,18 @@ use App\Service\BoutiqueService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Service\AppBoutiqueIndexController;
 
 # On peut définir ici un préfixe pour les URL de toutes les routes des actions de la classe DefaultController
 #[Route(
-    path: '/'
+    path: '/',
 )]
 class DefaultController extends AbstractController
 {
     #[Route(
-        path: '', // L'URL auquel répondra cette action sera donc /
+        path: '{_locale}', // L'URL auquel répondra cette action sera donc /
         name: 'app_default_index',
+        requirements: ['_locale' => '%app.supported_locales%'],
+        defaults: ['_locale' => 'fr']
     )]
     public function index(): Response
     {
@@ -33,7 +34,7 @@ class DefaultController extends AbstractController
     }
 
     #[Route(
-        path: 'test', // L'URL auquel répondra cette action sera donc /test
+        path: '/test', // L'URL auquel répondra cette action sera donc /test
         name: 'app_default_test',
     )]
     public function test(): Response
@@ -45,16 +46,11 @@ class DefaultController extends AbstractController
 
     // route et contrôleur de la page de contact
     #[Route(
-        path: 'contact', // L'URL auquel répondra cette action sera donc /contact
+        path: '/{_locale}/contact', // L'URL auquel répondra cette action sera donc /contact
         name: 'app_default_contact',
     )]
     public function contact(): Response
     {
         return $this->render('default/contact.html.twig');
     }
-
-
-
-
-
 }

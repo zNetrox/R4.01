@@ -2,8 +2,8 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 	<a class="navbar-brand" href="{{ path("app_default_index") }}">
 		<i class="fas fa-home"></i>
-		Accueil Boutique
-	</a>
+        {% trans %} default.nav.accueil {% endtrans %}
+    </a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -12,13 +12,13 @@
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path("app_boutique_index") }}">
 					<i class="fas fa-store"></i>
-					Boutique
-				</a>
+                    {% trans %} default.nav.boutique {% endtrans %}
+                </a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path("app_default_contact") }}">
 					<i class="fas fa-comments"></i>
-					Contact
+                    Contact
 				</a>
 			</li>
 			{# TODO : ajouter au fil des TPs les autres éléments du menu #}
@@ -29,8 +29,30 @@
 		<!-- Début menu des monnaies -->
 		{# TODO #}
 		<!-- Fin menu des monnaies -->
-		<!-- Début menu des langues -->
-		{# TODO #}
-		<!-- Fin Menu des langues -->
+
+		<!-- menu des langues -->
+        <div class="dropdown-languages">
+            {% set currentlocale = app.request.attributes.get('_locale') %} <!-- recupere la langue actuel -->
+            {% set route = app.request.attributes.get('_route') %} <!-- recupere la route actuel -->
+            {% set params = app.request.attributes.get('_route_params') %} <!-- recupere les parametres de la route actuel -->
+            {% set params = params | merge({'_locale': currentlocale }) %} <!-- modifie la valeur du paramètre '_locale' -->
+
+            <!-- path(route,params) -->
+
+
+            <button>
+                <img src="{{ asset('images/locale/' ~ currentlocale ~ '.png') }}" alt="{{ currentlocale }}">
+            </button>
+
+            <div class="dropdown">
+                    {% for locale in supported_locales | split('|') %}
+                        {% if locale != currentlocale %}
+                            <a href="{{ path(route,params) }}">
+                                <img src="{{ asset('images/locale/' ~ locale ~ '.png') }}" alt="{{ locale }}">
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+            </div>
+        </div>
 	</div>
 </nav>

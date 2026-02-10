@@ -6,11 +6,13 @@ use App\Service\BoutiqueService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+#[Route(
+    path: '/',
+)]
 final class BoutiqueController extends AbstractController
 {
     #[Route(
-        path: '/boutique',
+        path: '{_locale}/boutique',
         name: 'app_boutique_index'
     )]
     public function index(BoutiqueService $boutiqueService): Response
@@ -21,7 +23,7 @@ final class BoutiqueController extends AbstractController
     }
 
     #[Route(
-        path: '/rayon/{idCategorie}',
+        path: '{_locale}/rayon/{idCategorie}',
         name: 'app_boutique_rayon',
         requirements: ['idCategorie' => '\d+']
     )]
