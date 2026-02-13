@@ -1,10 +1,15 @@
-import './stimulus_bootstrap.js';
-/*
- * Welcome to your app's main JavaScript file!
- *
- * This file will be included onto the page via the importmap() Twig function,
- * which should already be in your base.html.twig.
- */
-import './styles/app.css';
+document.addEventListener('DOMContentLoaded', () => {
+    // search
+    const searchButton = document.getElementById('searchButton');
+    const searchInput = document.getElementById('searchString');
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+    searchButton.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        if (query !== "") {
+            const baseUrl = searchButton.getAttribute('data-url');
+            const encodedQuery = encodeURIComponent(query);
+            window.location.href = baseUrl + '/' + encodedQuery;
+        }
+    });
+
+});

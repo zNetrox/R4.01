@@ -1,4 +1,28 @@
 {# barre de navigation  #}
+<style>
+
+    .container_languages {
+        position: relative;
+    }
+
+    .container_languages button {
+        background: transparent;
+        border: 0;
+    }
+
+    .container_languages .dropdown {
+        background: var(--white);
+        position: absolute;
+        width: 100%;
+    }
+
+    .container_search {
+        display: flex;
+        gap: 5px;
+    }
+
+</style>
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 	<a class="navbar-brand" href="{{ path("app_default_index") }}">
 		<i class="fas fa-home"></i>
@@ -26,33 +50,42 @@
 		<!-- Début champ de recherche -->
 		{# TODO #}
 		<!-- Fin champ de recherche -->
+        <form class="form-inline my-2 my-lg-0 container_search" onsubmit="return false;">
+            <input class="form-control mr-sm-2" id="searchString" type="text" placeholder="{% trans %}search item(s)...{% endtrans %}" aria-label="Search">
+
+            {# On stocke l'URL de base ici pour que le JS puisse la récupérer #}
+            <button class="btn btn-secondary my-2 my-sm-0" id="searchButton" data-url="{{ path('app_boutique_chercher') }}">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
 		<!-- Début menu des monnaies -->
 		{# TODO #}
 		<!-- Fin menu des monnaies -->
 
 		<!-- menu des langues -->
-        <div class="dropdown-languages">
-            {% set currentlocale = app.request.attributes.get('_locale') %} <!-- recupere la langue actuel -->
-            {% set route = app.request.attributes.get('_route') %} <!-- recupere la route actuel -->
-            {% set params = app.request.attributes.get('_route_params') %} <!-- recupere les parametres de la route actuel -->
-            {% set params = params | merge({'_locale': currentlocale }) %} <!-- modifie la valeur du paramètre '_locale' -->
+            <div class="container_languages">
+                {% set currentlocale = app.request.attributes.get('_locale') %}
+                {% set route = app.request.attributes.get('_route') %}
+                {% set params = app.request.attributes.get('_route_params') %}
 
-            <!-- path(route,params) -->
+                <button data-toggle="dropdown">
+                    <img src="{{ asset('images/locale/' ~ currentlocale ~ '.png') }}" alt="{{ currentlocale }}">
+                    <span>&#9662;</span>
+                </button>
 
-
-            <button>
-                <img src="{{ asset('images/locale/' ~ currentlocale ~ '.png') }}" alt="{{ currentlocale }}">
-            </button>
-
-            <div class="dropdown">
+                <div class="dropdown dropdown-menu">
                     {% for locale in supported_locales | split('|') %}
                         {% if locale != currentlocale %}
-                            <a href="{{ path(route,params) }}">
+                            <a class="dropdown-item" href="{{ path(route, params | merge({'_locale': locale})) }}">
                                 <img src="{{ asset('images/locale/' ~ locale ~ '.png') }}" alt="{{ locale }}">
                             </a>
                         {% endif %}
                     {% endfor %}
+                </div>
             </div>
         </div>
 	</div>
 </nav>
+
+<script src="{{ asset('app.js') }}"></script>
+

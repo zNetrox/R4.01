@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="KrOiUCO" resname="default.index.nom_boutique">
+        <source>default.index.nom_boutique</source>
+        <target>R4.01 Store </target>
+      </trans-unit>
+      <trans-unit id="l1F8qIh" resname="default.index.description">
+        <source>default.index.description</source>
+        <target>Nothing to trade, we just want to learn...</target>
+      </trans-unit>
+      <trans-unit id="4hLa1Is" resname="default.nav.accueil">
+        <source>default.nav.accueil</source>
+        <target>Home</target>
+      </trans-unit>
+      <trans-unit id="H7_8MBg" resname="default.nav.boutique">
+        <source>default.nav.boutique</source>
+        <target>Store</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
